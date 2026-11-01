@@ -1,24 +1,38 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Nav } from "@/components/landing/Nav";
+import { Hero } from "@/components/landing/Hero";
+import { Book } from "@/components/landing/Book";
+import { Quiz } from "@/components/landing/Quiz";
+import { Why, Flavors, Journey, Creators, Colab, Fair, Footer } from "@/components/landing/Sections";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Além do Glúten & da Lactose — Livro de receitas" },
+      { name: "description", content: "Receitas sem glúten e sem lactose com muito sabor. Projeto COLAB 2026 de Stella, Davi e Valentina." },
+      { property: "og:title", content: "Além do Glúten & da Lactose" },
+      { property: "og:description", content: "Sem glúten, sem lactose… mas com MUITO sabor! Conheça o livro e descubra seu perfil de chef." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <main>
+      <Nav />
+      <Hero />
+      <Book />
+      <Quiz />
+      <Why />
+      <Flavors />
+      <Journey />
+      <Creators />
+      <Colab />
+      <Fair />
+      <Footer />
+    </main>
   );
 }
