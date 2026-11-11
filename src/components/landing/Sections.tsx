@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import mascot from "@/assets/mascote_comida_para_todos.jpeg.asset.json";
+import logo from "@/assets/logo_comida_para_todos.jpeg.asset.json";
 import { QRCodeSVG } from "qrcode.react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -45,14 +47,14 @@ export function Flavors() {
       <SectionTitle kicker="Sabores" title="O que você gostaria de preparar hoje?" />
       <div className="mx-auto mb-8 flex max-w-3xl flex-wrap justify-center gap-2" role="group" aria-label="Filtrar por categoria">
         {[{ id: "todas" as const, name: "Todas", emoji: "🍽️" }, ...categories].map((c) => (
-          <button
+          <Button variant={filter === c.id ? "default" : "outline"}
             key={c.id}
             onClick={() => setFilter(c.id)}
             aria-pressed={filter === c.id}
             className={`min-h-11 rounded-full border-2 border-primary px-4 font-bold transition-all ${filter === c.id ? "bg-primary text-primary-foreground" : "bg-card text-primary hover:bg-secondary"}`}
           >
             {c.emoji} {c.name}
-          </button>
+          </Button>
         ))}
       </div>
       <div className="mx-auto grid max-w-5xl gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -81,16 +83,20 @@ export function Flavors() {
       {shown.length > 0 && (
         <div className="mx-auto mt-10 grid max-w-5xl gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {shown.map((r) => (
-            <button key={r.name} onClick={() => setOpen(r)} className="overflow-hidden rounded-3xl bg-card text-left shadow-soft transition-transform hover:-translate-y-1">
+            <article key={r.name} className="overflow-hidden rounded-2xl bg-card text-left shadow-soft transition-transform hover:-translate-y-1">
               {r.image && <img src={r.image} alt={r.name} className="aspect-video w-full object-cover" loading="lazy" />}
               <div className="p-5">
                 <h4 className="text-lg text-primary">{r.name}</h4>
-                <p className="text-sm text-muted-foreground">⏱️ {r.time} • 🍽️ {r.servings}</p>
+                {r.needsReview && <Pending label="Precisa de revisão" />}
+                <p className="mt-2 text-sm text-muted-foreground">⏱️ {r.time}</p>
+                <p className="text-sm text-muted-foreground">🍽️ {r.servings}</p>
+                <Button variant="hero" className="mt-4" onClick={() => setOpen(r)}>Ver receita</Button>
               </div>
-            </button>
+            </article>
           ))}
         </div>
       )}
+      <p className="mx-auto mt-6 max-w-5xl text-center text-sm text-muted-foreground">Medidas do livro: 1 xícara = 240 ml • 1 colher de sopa = 15 ml • 1 colher de chá = 5 ml. Salvo indicação, forno preaquecido a 180 °C.</p>
       <Dialog open={!!open} onOpenChange={(o) => !o && setOpen(null)}>
         <DialogContent className="max-h-[90vh] overflow-y-auto">
           {open && (
@@ -101,10 +107,12 @@ export function Flavors() {
               </DialogHeader>
               {open.image && <img src={open.image} alt={open.name} className="rounded-2xl" />}
               <h4 className="text-primary">Ingredientes</h4>
-              <ul className="list-disc pl-5">{open.ingredients.map((x) => <li key={x}>{x}</li>)}</ul>
+              {open.ingredientGroups?.map((group) => <div key={group.title}><p className="mb-2 font-bold">{group.title}</p><ul className="list-disc space-y-1 pl-5">{group.items.map((x, i) => <li key={i}>{x}</li>)}</ul></div>)}
               <h4 className="text-primary">Modo de preparo</h4>
-              <ol className="list-decimal pl-5">{open.steps.map((x) => <li key={x}>{x}</li>)}</ol>
-              <p className="rounded-2xl bg-secondary p-3 text-sm">🌾🥛 {open.notes}</p>
+              <ol className="list-decimal space-y-3 pl-5">{open.steps.map((x) => <li key={x}>{x}</li>)}</ol>
+              {open.needsReview && <p role="note" className="rounded-2xl bg-secondary p-3 text-sm"><strong>Receita incompleta no documento:</strong> faltam os ingredientes e as quantidades da massa. O preparo menciona leite sem especificar o tipo. Confirme esses dados com a equipe antes de preparar.</p>}
+              {open.notes && <p className="rounded-2xl bg-secondary p-3 text-sm">🌾🥛 {open.notes}</p>}
+              <p className="text-sm text-muted-foreground">Confira os rótulos dos ingredientes quanto a glúten e lactose e evite contaminação cruzada. As receitas não substituem orientação individual sobre alergias e restrições alimentares.</p>
             </>
           )}
         </DialogContent>
@@ -149,8 +157,7 @@ export function Creators() {
           <Reveal key={c.name} delay={k * 120}>
             <article className={`rounded-3xl border-2 border-primary bg-card p-6 text-center shadow-sticker transition-transform hover:-translate-y-1 ${k === 1 ? "sm:-rotate-1" : "sm:rotate-1"}`}>
               <div className={`relative mx-auto mb-4 flex h-28 w-28 items-center justify-center rounded-full ${hatBg[c.hat]}`}>
-                <span className="absolute -top-6 text-5xl" aria-hidden>👨‍🍳</span>
-                <span className="text-5xl" aria-hidden>{c.emoji}</span>
+                <img src={c.photo} alt={`Foto de ${c.name}`} className="h-full w-full rounded-full object-cover" loading="lazy" />
               </div>
               <h3 className="text-2xl text-primary">{c.name}</h3>
               <div className="mt-2">{c.message ? <p>{c.message}</p> : <Pending label="Mensagem a preencher" />}</div>
@@ -158,6 +165,10 @@ export function Creators() {
           </Reveal>
         ))}
       </div>
+      <Reveal className="mx-auto mt-12 flex max-w-3xl flex-col items-center gap-6 sm:flex-row">
+        <img src={mascot.url} alt="Mascote do time: boneco artesanal com chapéu rosa e laço azul" className="h-64 w-48 rounded-2xl border-2 border-primary object-cover shadow-sticker" loading="lazy" />
+        <div className="text-center sm:text-left"><span className="font-display text-sm font-bold text-primary">Mais um integrante!</span><h3 className="mt-2 text-2xl text-primary">Nosso mascote</h3><p className="mt-3 text-muted-foreground">O companheiro da nossa equipe, com chapéu rosa e muita personalidade.</p></div>
+      </Reveal>
     </section>
   );
 }
@@ -180,12 +191,12 @@ export function Colab() {
               const open = openIdx === k;
               return (
                 <div key={c.title} className="rounded-2xl border-2 border-primary/40 bg-card shadow-soft">
-                  <button className="flex min-h-16 w-full items-center gap-3 p-4 text-left" onClick={() => setOpenIdx(open ? null : k)} aria-expanded={open}>
+                  <Button variant="ghost" className="flex h-auto min-h-16 w-full whitespace-normal items-center gap-3 p-4 text-left" onClick={() => setOpenIdx(open ? null : k)} aria-expanded={open}>
                     <span className="text-2xl">{c.emoji}</span>
                     <span className="flex-1 font-display font-bold text-primary">{c.title}</span>
                     {!c.text && <span className="h-2.5 w-2.5 rounded-full bg-caramel" title="A preencher" />}
                     <span className={`transition-transform ${open ? "rotate-45" : ""}`} aria-hidden>＋</span>
-                  </button>
+                  </Button>
                   {open && <div className="border-t border-dashed px-4 py-4 animate-in fade-in">{c.text ? <p>{c.text}</p> : <Pending />}</div>}
                 </div>
               );
@@ -238,6 +249,7 @@ export function Footer() {
   return (
     <footer className="bg-gingham border-t-4 border-primary px-5 py-12 text-center">
       <div className="mx-auto max-w-xl rounded-3xl bg-card/90 p-6 shadow-soft">
+        <img src={logo.url} alt="Comida Livre Para Todos" className="mx-auto mb-4 h-32 w-32 rounded-2xl object-contain" loading="lazy" />
         <p className="font-display text-2xl font-bold text-primary">Além do Glúten & da Lactose</p>
         <p className="mt-2">Uma ideia feita com criatividade, carinho e muito sabor!</p>
         <p className="mt-4 text-sm text-muted-foreground">Projeto COLAB • Feira de Empreendedorismo 2026 • Colégio Ideal</p>

@@ -8,3 +8,6 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep editable content and imported recipe data in src/content, separate from presentation, so supplied content can be updated without rebuilding the layout.
+- Keep quiz scoring in a pure module with concrete tests so all chef profiles remain reachable.

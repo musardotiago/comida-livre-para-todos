@@ -7,7 +7,7 @@ export function Reveal({ children, className = "", delay = 0 }: { children: Reac
     if (!el) return;
     const io = new IntersectionObserver(
       ([e]) => {
-        if (e.isIntersecting) {
+        if (e?.isIntersecting) {
           el.classList.add("is-visible");
           io.disconnect();
         }
@@ -57,7 +57,7 @@ export function Confetti({ trigger }: { trigger: number }) {
         id: trigger * 100 + i,
         x: (Math.random() - 0.5) * 520,
         y: (Math.random() - 0.2) * 420,
-        c: colors[i % colors.length],
+        c: colors[i % colors.length] ?? "var(--strawberry)",
         d: Math.random() * 200,
       })),
     );

@@ -35,6 +35,7 @@ export function Book() {
     setI(n);
   };
   const page = pages[i];
+  if (!page) return null;
 
   return (
     <section id="livro" className="relative px-5 py-20">
@@ -42,10 +43,10 @@ export function Book() {
       <Reveal className="mx-auto max-w-md">
         <div
           className="relative aspect-[3/4] select-none"
-          onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
+          onTouchStart={(e) => (touchX.current = e.touches[0]?.clientX ?? null)}
           onTouchEnd={(e) => {
             if (touchX.current === null) return;
-            const dx = e.changedTouches[0].clientX - touchX.current;
+            const dx = (e.changedTouches[0]?.clientX ?? touchX.current) - touchX.current;
             if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
             touchX.current = null;
           }}
@@ -75,8 +76,9 @@ export function Book() {
               <div className="relative flex h-full flex-col items-center justify-end">
                 <img src={capaPaisagem.url} alt="" className="absolute inset-0 h-full w-full object-cover" />
                 <div className="relative m-5 rounded-2xl border-stitch bg-card/95 p-5 text-center">
-                  <p className="font-display text-xl font-bold text-primary">As receitas estão no forno! 🔥</p>
-                  <p className="mt-1 text-sm text-muted-foreground">Em breve, novas páginas aparecerão aqui.</p>
+                  <p className="font-display text-xl font-bold text-primary">42 receitas para descobrir! 🍽️</p>
+                  <p className="mt-1 text-sm text-muted-foreground">Explore os ingredientes e o preparo na seção de sabores.</p>
+                  <Button asChild variant="hero" className="mt-3"><a href="#sabores">Ver receitas</a></Button>
                 </div>
               </div>
             )}

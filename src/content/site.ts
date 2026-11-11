@@ -1,3 +1,7 @@
+import importedRecipes from "./recipes.json";
+import stella from "@/assets/Stella.jpeg.asset.json";
+import davi from "@/assets/Davi.jpeg.asset.json";
+import valentina from "@/assets/Valentina.jpeg.asset.json";
 /**
  * ✏️ CONTEÚDO EDITÁVEL DO SITE
  * Stella, Davi e Valentina: alterem os textos aqui! Campos com "" (vazio)
@@ -14,6 +18,9 @@ export const categories: { id: CategoryId; name: string; emoji: string; descript
 ];
 
 export type Recipe = {
+  id?: number;
+  ingredientGroups?: { title: string; items: string[] }[];
+  needsReview?: boolean;
   name: string;
   image?: string; // URL da foto ou ilustração
   category: CategoryId;
@@ -25,15 +32,15 @@ export type Recipe = {
 };
 
 /** Adicionem as receitas reais aqui quando estiverem prontas. */
-export const recipes: Recipe[] = [];
+export const recipes: Recipe[] = importedRecipes.map((recipe) => ({ ...recipe, category: recipe.category as CategoryId }));
 
 /** Páginas do livro digital. Para adicionar uma página de receita, inclua { kind: "image", image: "URL", alt: "..." }. */
 export const extraBookPages: { kind: "image"; image: string; alt: string }[] = [];
 
 export const creators = [
-  { name: "Stella", emoji: "🍓", hat: "strawberry" as const, message: "" },
-  { name: "Davi", emoji: "🍫", hat: "caramel" as const, message: "" },
-  { name: "Valentina", emoji: "🧁", hat: "butter" as const, message: "" },
+  { name: "Stella", photo: stella.url, emoji: "🍓", hat: "strawberry" as const, message: "" },
+  { name: "Davi", photo: davi.url, emoji: "🍫", hat: "caramel" as const, message: "" },
+  { name: "Valentina", photo: valentina.url, emoji: "🧁", hat: "butter" as const, message: "" },
 ];
 export const teamMessage = "Juntos, misturamos ideias, criatividade e muita vontade de empreender!";
 

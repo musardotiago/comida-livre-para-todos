@@ -40,13 +40,15 @@ export const questions: { q: string; options: Option[] }[] = [
 export function computeProfile(answers: number[]): Profile {
   const score: Record<Profile, number> = { chocolatudo: 0, inventor: 0, pratico: 0, confeiteiro: 0 };
   answers.forEach((a, qi) => {
-    const pts = questions[qi].options[a].points;
-    for (const k in pts) score[k as Profile] += pts[k as Profile]!;
+    const pts = questions[qi]?.options[a]?.points;
+    if (!pts) return;
+    for (const k of Object.keys(pts) as Profile[]) score[k] += pts[k] ?? 0;
   });
-  const first = questions[0].options[answers[0]].points;
-  const tiebreak = (Object.keys(first) as Profile[]).sort((a, b) => first[b]! - first[a]!);
+  const answer = answers[0];
+  const first = answer === undefined ? {} : questions[0]?.options[answer]?.points ?? {};
+  const tiebreak = (Object.keys(first) as Profile[]).sort((a, b) => (first[b] ?? 0) - (first[a] ?? 0));
   const order: Profile[] = [...tiebreak, "chocolatudo", "inventor", "pratico", "confeiteiro"];
-  let best = order[0];
+  let best: Profile = order[0] ?? "chocolatudo";
   for (const p of order) if (score[p] > score[best]) best = p;
   return best;
 }

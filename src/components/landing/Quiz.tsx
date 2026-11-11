@@ -8,6 +8,7 @@ export function Quiz() {
   const [burst, setBurst] = useState(0);
   const step = answers.length;
   const done = step === questions.length;
+  const question = questions[step];
   const result = done ? profiles[computeProfile(answers)] : null;
 
   const choose = (k: number) => {
@@ -22,7 +23,7 @@ export function Quiz() {
       <Reveal className="relative mx-auto max-w-xl">
         <Confetti trigger={burst} />
         <div className="rounded-3xl border-2 border-primary bg-card p-6 shadow-sticker sm:p-8" aria-live="polite">
-          {!done ? (
+          {!done && question ? (
             <div key={step} className="animate-in fade-in slide-in-from-right-4 duration-300">
               <div className="mb-5 flex items-center justify-between text-sm font-bold text-muted-foreground">
                 <span>Pergunta {step + 1} de {questions.length}</span>
@@ -32,18 +33,18 @@ export function Quiz() {
                   ))}
                 </div>
               </div>
-              <h3 className="mb-6 text-2xl text-primary">{questions[step].q}</h3>
+              <h3 className="mb-6 text-2xl text-primary">{question.q}</h3>
               <div className="grid gap-3">
-                {questions[step].options.map((o, k) => (
+                {question.options.map((o, k) => (
                   <Button key={o.label} variant="choice" className="justify-start px-5 py-4 text-left" onClick={() => choose(k)}>
                     <span className="text-2xl">{o.emoji}</span> {o.label}
                   </Button>
                 ))}
               </div>
               {step > 0 && (
-                <button className="mt-4 text-sm font-semibold text-muted-foreground underline" onClick={() => setAnswers(answers.slice(0, -1))}>
+                <Button variant="link" className="mt-4 text-sm font-semibold text-muted-foreground underline" onClick={() => setAnswers(answers.slice(0, -1))}>
                   ← voltar
-                </button>
+                </Button>
               )}
             </div>
           ) : (
