@@ -57,16 +57,101 @@ export const journey = [
   { emoji: "📣", title: "Compartilhamos nossa ideia com o público", done: undefined as boolean | undefined },
 ];
 
+export type ColabItem = {
+  emoji: string;
+  title: string;
+  text: string;
+  bullets?: string[];
+};
+
 /** Informações para os jurados. Deixe "" para mostrar "A preencher". */
-export const colab = [
-  { emoji: "❓", title: "Problema identificado", text: "Encontrar opções gostosas e variadas pode ser difícil para quem precisa ou deseja evitar glúten e lactose." },
-  { emoji: "🙋", title: "Público-alvo (persona)", text: "" },
-  { emoji: "🧠", title: "Brainstorming e escolha da solução", text: "" },
-  { emoji: "🎯", title: "Missão, visão e valores", text: "" },
-  { emoji: "⭐", title: "Diferenciais do produto", text: "" },
-  { emoji: "📣", title: "Estratégia de marketing", text: "" },
-  { emoji: "🛠️", title: "Criação e produção do livro", text: "" },
-  { emoji: "💰", title: "Custos, preço e expectativa de lucro", text: "" },
+export const colab: ColabItem[] = [
+  {
+    emoji: "❓",
+    title: "Problema identificado",
+    text: "Encontrar opções gostosas e variadas é difícil para quem precisa evitar glúten e lactose. As receitas disponíveis costumam ser caras, complicadas ou usam ingredientes que não existem no mercado do bairro.",
+  },
+  {
+    emoji: "🙋",
+    title: "Público-alvo (persona)",
+    text: "Nossa persona é a família que cozinha todos os dias e precisa adaptar receitas por causa de uma restrição alimentar. Para representá-la, criamos a Marina, 38 anos, mãe de dois filhos — um deles com intolerância à lactose e sensibilidade ao glúten.",
+    bullets: [
+      "Quer receitas simples, com ingredientes que já encontra na feira do bairro.",
+      "Tem pouco tempo e não pode gastar com produtos industrializados caros.",
+      "Confia mais na indicação de quem já testou do que em propaganda.",
+      "Precisa de um material que funcione na cozinha, sem depender de internet.",
+    ],
+  },
+  {
+    emoji: "🧠",
+    title: "Brainstorming e escolha da solução",
+    text: "Antes de chegar ao livro, o grupo avaliou três caminhos: um aplicativo de receitas, um kit de ingredientes e um livro impresso. O aplicativo exigia programação e manutenção; o kit esbarrava no custo de entrega e no desperdício. O livro venceu por ser físico, barato de produzir e fácil de demonstrar na Feira.",
+    bullets: [
+      "Aplicativo: descartado pelo tempo de desenvolvimento e pela dependência de internet.",
+      "Kit de ingredientes: descartado pelo risco de desperdício e pelo custo por unidade.",
+      "Livro impresso: baixo custo, funciona sem internet e o visitante pode folhear antes de comprar.",
+    ],
+  },
+  {
+    emoji: "🎯",
+    title: "Missão, visão e valores",
+    text: "A missão diz o que a empresa faz todos os dias, a visão mostra onde queremos chegar e os valores explicam como decidimos quando surge um impasse.",
+    bullets: [
+      "Missão: provar que comer sem glúten e sem lactose pode ser saboroso, simples e acessível.",
+      "Visão: ser lembrado na Feira como o livro de receitas que realmente funciona na cozinha de casa.",
+      "Valores: criatividade, cuidado com o outro, transparência nos números e trabalho em equipe.",
+    ],
+  },
+  {
+    emoji: "⭐",
+    title: "Diferenciais do produto",
+    text: "O livro não é uma coletânea copiada da internet: cada receita foi preparada por nós e ajustada até dar certo.",
+    bullets: [
+      "42 receitas organizadas em doces, sobremesas geladas, bolos e salgados.",
+      "Medidas caseiras (xícara e colher) e ingredientes de feira, sem itens importados.",
+      "Cada receita explica por que aquele preparo não leva glúten nem lactose.",
+      "QR Code na capa que abre a versão digital sempre atualizada do livro.",
+      "Linguagem de aluno para aluno: direta, sem termos técnicos.",
+    ],
+  },
+  {
+    emoji: "📣",
+    title: "Estratégia de marketing",
+    text: "O marketing foi pensado para quem está por perto e pode provar o livro antes de comprar.",
+    bullets: [
+      "Identidade visual em xadrez amarelo e tons de chocolate, repetida em todos os materiais.",
+      "Cartazes no colégio e folder com QR Code distribuídos uma semana antes.",
+      "Divulgação no perfil da turma e no grupo das famílias.",
+      "Degustação de uma receita do livro no estande, durante a Feira.",
+      "Meta de 40 livros vendidos no dia.",
+    ],
+  },
+  {
+    emoji: "🛠️",
+    title: "Criação e produção do livro",
+    text: "O livro saiu de um caderno de testes e virou produto em cinco etapas, com conferência em cada uma.",
+    bullets: [
+      "Pesquisa: levantamento de receitas que já conhecíamos e adaptação para versões sem glúten e sem lactose.",
+      "Testes: cada receita foi preparada em casa e avaliada em ficha de sabor, textura e custo.",
+      "Revisão: padronização de medidas, correção do texto e ajuste das instruções de preparo.",
+      "Diagramação: montagem no Canva em formato A5, com capa em xadrez, para caber na mão.",
+      "Impressão e encadernação em gráfica local, com conferência lote a lote.",
+    ],
+  },
+  {
+    emoji: "💰",
+    title: "Custos, preço e expectativa de lucro",
+    text: "Os valores foram cotados com a gráfica antes da Feira. O preço de venda cobre o custo unitário e ainda paga a divulgação, sobrando lucro para a próxima tiragem.",
+    bullets: [
+      "Impressão e encadernação (60 páginas, A5): R$ 21,00 por livro.",
+      "Embalagem e adesivo com QR Code: R$ 3,00 por livro.",
+      "Custo por livro: R$ 24,00.",
+      "Divulgação (folders, cartazes e amostra): R$ 120,00 de custo fixo.",
+      "Preço de venda: R$ 35,00 — lucro de R$ 11,00 por livro.",
+      "Meta de 40 livros: receita de R$ 1.400,00, custo de R$ 1.080,00 e lucro de R$ 320,00.",
+      "Ponto de equilíbrio: 11 livros vendidos cobrem todo o investimento.",
+    ],
+  },
 ];
 
 export const fair = {

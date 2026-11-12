@@ -197,7 +197,21 @@ export function Colab() {
                     {!c.text && <span className="h-2.5 w-2.5 rounded-full bg-caramel" title="A preencher" />}
                     <span className={`transition-transform ${open ? "rotate-45" : ""}`} aria-hidden>＋</span>
                   </Button>
-                  {open && <div className="border-t border-dashed px-4 py-4 animate-in fade-in">{c.text ? <p>{c.text}</p> : <Pending />}</div>}
+                  {open && (
+                    <div className="border-t border-dashed px-4 py-4 animate-in fade-in">
+                      {c.text ? <p>{c.text}</p> : <Pending />}
+                      {c.bullets && c.bullets.length > 0 && (
+                        <ul className="mt-3 space-y-2 text-sm">
+                          {c.bullets.map((b) => (
+                            <li key={b} className="flex gap-2">
+                              <span aria-hidden className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-caramel" />
+                              <span>{b}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  )}
                 </div>
               );
             })}
