@@ -156,6 +156,6 @@ export const colab: ColabItem[] = [
 
 export const fair = {
   date: "13/11/2026",
-  time: "Período matutino",
+  time: "18:00h",
   place: "St. G Norte Nº 26 - Taguatinga, Brasília",
 };

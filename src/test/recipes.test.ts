@@ -50,7 +50,7 @@ describe("Official website and fair details", () => {
     expect(fair.date).toBe("13/11/2026");
   });
   it("sets the supplied fair time", () => {
-    expect(fair.time).toBe("Período matutino");
+    expect(fair.time).toBe("18:00h");
   });
   it("sets the supplied fair address", () => {
     expect(fair.place).toBe("St. G Norte Nº 26 - Taguatinga, Brasília");
