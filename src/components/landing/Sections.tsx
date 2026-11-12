@@ -161,7 +161,6 @@ export function Creators() {
                 <img src={c.photo} alt={`Foto de ${c.name}`} className="h-full w-full rounded-full object-cover" loading="lazy" />
               </div>
               <h3 className="text-2xl text-primary">{c.name}</h3>
-              <div className="mt-2">{c.message ? <p>{c.message}</p> : <Pending label="Mensagem a preencher" />}</div>
             </article>
           </Reveal>
         ))}

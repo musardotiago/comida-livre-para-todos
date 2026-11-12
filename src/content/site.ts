@@ -42,9 +42,9 @@ export const recipes: Recipe[] = importedRecipes.map((recipe) => ({ ...recipe, c
 export const extraBookPages: { kind: "image"; image: string; alt: string }[] = [];
 
 export const creators = [
-  { name: "Stella", photo: stella.url, emoji: "🍓", hat: "strawberry" as const, message: "" },
-  { name: "Davi", photo: davi.url, emoji: "🍫", hat: "caramel" as const, message: "" },
-  { name: "Valentina", photo: valentina.url, emoji: "🧁", hat: "butter" as const, message: "" },
+  { name: "Stella", photo: stella.url, emoji: "🍓", hat: "strawberry" as const },
+  { name: "Davi", photo: davi.url, emoji: "🍫", hat: "caramel" as const },
+  { name: "Valentina", photo: valentina.url, emoji: "🧁", hat: "butter" as const },
 ];
 export const teamMessage = "Juntos, misturamos ideias, criatividade e muita vontade de empreender!";
 
