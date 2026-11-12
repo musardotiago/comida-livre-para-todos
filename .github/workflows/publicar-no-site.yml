@@ -1,4 +1,4 @@
-name: Publicar no site
+﻿name: Publicar no site
 
 on:
   push:
@@ -18,10 +18,47 @@ jobs:
   publicar:
     runs-on: ubuntu-latest
     steps:
-      - name: 1. Código-fonte
+      - name: 1. Codigo-fonte
         uses: actions/checkout@v4
 
-      - name: 2. Baixar o repositório do site
+      - name: 2. Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: 3. Instalar
+        run: bun install --frozen-lockfile
+
+      - name: 4. Build
+        run: bun run build
+
+      - name: 5. Conferir o prerender
+        run: |
+          test -f .output/public/index.html || { echo "::error::prerender nao gerou index.html"; exit 1; }
+          grep -q 'Sem gl' .output/public/index.html || { echo "::error::index.html sem conteudo real"; exit 1; }
+
+      - name: 6. Reescrever as imagens do Lovable
+        run: |
+          find .output/public -type f \( -name '*.html' -o -name '*.js' \) -print0 \
+            | xargs -0 sed -i -E 's#/__l5e/assets-v1/[0-9a-f-]+/#/comida-livre-para-todos/img/#g'
+          if grep -rl -- '__l5e' .output/public; then
+            echo "::error::sobraram referencias /__l5e"
+            exit 1
+          fi
+
+      - name: 7. Conferir que as 8 imagens existem
+        run: |
+          faltando=0
+          for f in capa-livro.jpg capa.jpg apresentacao.jpg logo_comida_para_todos.jpeg mascote_comida_para_todos.jpeg Davi.jpeg Stella.jpeg Valentina.jpeg; do
+            [ -f "public/img/$f" ] || { echo "::error::public/img/$f ausente no repositorio"; faltando=1; }
+          done
+          for ref in $(grep -ohE '/comida-livre-para-todos/img/[^"]+' .output/public/index.html | sort -u); do
+            rel="${ref#/comida-livre-para-todos/}"
+            [ -f ".output/public/$rel" ] || { echo "::error::faltando no build: $rel"; faltando=1; }
+          done
+          exit $faltando
+
+      - name: 8. Baixar o repositorio do site
         uses: actions/checkout@v4
         with:
           repository: musardotiago/musardotiago.github.io
@@ -29,17 +66,14 @@ jobs:
           path: _site
           token: ${{ secrets.SITE_TOKEN }}
 
-      - name: 3. Espelhar na pasta
+      - name: 9. Espelhar
         run: |
           rm -rf "_site/$SITE_DIR"
           mkdir -p "_site/$SITE_DIR"
-          rsync -a --delete \
-            --exclude='.git' --exclude='.github' --exclude='_site' \
-            --exclude='README.md' --exclude='.gitignore' \
-            ./ "_site/$SITE_DIR/"
+          rsync -a --delete --exclude='_headers' .output/public/ "_site/$SITE_DIR/"
           touch _site/.nojekyll
 
-      - name: 4. Commit e push
+      - name: 10. Commit e push
         run: |
           cd _site
           git config user.name  "github-actions[bot]"
