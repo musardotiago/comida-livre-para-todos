@@ -107,7 +107,7 @@ export const colab: ColabItem[] = [
     title: "Diferenciais do produto",
     text: "O livro não é uma coletânea copiada da internet: cada receita foi preparada por nós e ajustada até dar certo.",
     bullets: [
-      "42 receitas organizadas em doces, sobremesas geladas, bolos e salgados.",
+      "43 receitas organizadas em doces, sobremesas geladas, bolos e salgados.",
       "Medidas caseiras (xícara e colher) e ingredientes de feira, sem itens importados.",
       "Cada receita explica por que aquele preparo não leva glúten nem lactose.",
       "QR Code na capa que abre a versão digital sempre atualizada do livro.",
@@ -157,5 +157,5 @@ export const colab: ColabItem[] = [
 export const fair = {
   date: "13/11/2026",
   time: "18:00h",
-  place: "St. G Norte Nº 26 - Taguatinga, Brasília",
+  place: "QNG 31, Setor G Norte, Área Especial 31 — Taguatinga Norte, Brasília/DF",
 };

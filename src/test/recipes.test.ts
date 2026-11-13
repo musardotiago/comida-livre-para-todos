@@ -3,10 +3,10 @@ import { fair, officialSiteUrl, recipes } from "@/content/site";
 import { computeProfile } from "@/components/landing/quiz-logic";
 
 describe("Supplied recipe content", () => {
-  it("imports all 42 recipes with chapter categories", () => {
-    expect(recipes).toHaveLength(42);
+  it("imports all 43 recipes with chapter categories", () => {
+    expect(recipes).toHaveLength(43);
     expect(recipes.filter(r => r.category === "bolos")).toHaveLength(10);
-    expect(recipes.filter(r => r.category === "salgados")).toHaveLength(12);
+    expect(recipes.filter(r => r.category === "salgados")).toHaveLength(13);
     expect(recipes.filter(r => r.category === "doces")).toHaveLength(10);
     expect(recipes.filter(r => r.category === "geladas")).toHaveLength(10);
   });
@@ -53,7 +53,7 @@ describe("Official website and fair details", () => {
     expect(fair.time).toBe("18:00h");
   });
   it("sets the supplied fair address", () => {
-    expect(fair.place).toBe("St. G Norte Nº 26 - Taguatinga, Brasília");
+    expect(fair.place).toBe("QNG 31, Setor G Norte, Área Especial 31 — Taguatinga Norte, Brasília/DF");
   });
 });
 

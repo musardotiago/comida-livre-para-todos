@@ -4,7 +4,7 @@ import apresentacao from "@/assets/apresentacao.jpg.asset.json";
 import capaPaisagem from "@/assets/capa.jpg.asset.json";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { extraBookPages } from "@/content/site";
+import { extraBookPages, recipes } from "@/content/site";
 import { SectionTitle, Reveal } from "./shared";
 
 type Page =
@@ -76,7 +76,7 @@ export function Book() {
               <div className="relative flex h-full flex-col items-center justify-end">
                 <img src={capaPaisagem.url} alt="" className="absolute inset-0 h-full w-full object-cover" />
                 <div className="relative m-5 rounded-2xl border-stitch bg-card/95 p-5 text-center">
-                  <p className="font-display text-xl font-bold text-primary">42 receitas para descobrir! 🍽️</p>
+                  <p className="font-display text-xl font-bold text-primary">{recipes.length} receitas para descobrir! 🍽️</p>
                   <p className="mt-1 text-sm text-muted-foreground">Explore os ingredientes e o preparo na seção de sabores.</p>
                   <Button asChild variant="hero" className="mt-3"><a href="#sabores">Ver receitas</a></Button>
                 </div>

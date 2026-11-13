@@ -1790,5 +1790,58 @@
     "servings": "4 porções",
     "notes": "",
     "needsReview": false
+  },
+  {
+    "id": 43,
+    "name": "Empada sem glúten de airfryer",
+    "category": "salgados",
+    "ingredients": [
+      "1 xícara de farinha de aveia",
+      "2 ovos",
+      "2 colheres de sopa de azeite",
+      "1 colher de sopa de fermento químico",
+      "1 pitada de sal",
+      "1/5 de xícara de água (aproximadamente 50 ml), adicionada aos poucos",
+      "300 g de carne moída refogada com tempero a gosto (alho, cebola, sal e pimenta)",
+      "Opcional: milho, azeitona ou requeijão sem lactose"
+    ],
+    "ingredientGroups": [
+      {
+        "title": "Massa",
+        "items": [
+          "1 xícara de farinha de aveia",
+          "2 ovos",
+          "2 colheres de sopa de azeite",
+          "1 colher de sopa de fermento químico",
+          "1 pitada de sal",
+          "1/5 de xícara de água (aproximadamente 50 ml), adicionada aos poucos"
+        ]
+      },
+      {
+        "title": "Sugestão de recheio",
+        "items": [
+          "300 g de carne moída refogada com tempero a gosto (alho, cebola, sal e pimenta)",
+          "Opcional: milho, azeitona ou requeijão sem lactose"
+        ]
+      }
+    ],
+    "steps": [
+      "Coloque todos os ingredientes em uma tigela, deixando a água por último.",
+      "Misture bem e acrescente a água aos poucos, até a massa dar ponto de amassar e soltar das mãos.",
+      "Unte as forminhas de empada com azeite e espalhe a massa no fundo e nas laterais, apertando com os dedos.",
+      "Adicione o recheio já frio, sem encher até a borda.",
+      "Cubra com massa, apertando as bordas para fechar e selar.",
+      "Asse na Airfryer a 180 °C por cerca de 15 minutos, até dourar.",
+      "Espere 5 minutos antes de desenformar."
+    ],
+    "time": "Preparo: 20 minutos • Airfryer: 15 minutos",
+    "servings": "8 empadinhas",
+    "notes": "Massa sem glúten (farinha de aveia) e sem lactose (azeite no lugar da manteiga). No recheio, use apenas requeijão sem lactose ou deixe de fora.",
+    "tips": [
+      "A água entra aos poucos: a farinha de aveia dá ponto rápido, e massa mole demais não fecha a empada.",
+      "Recheio frio evita que a massa esfarele na hora de selar.",
+      "Forminhas de silicone soltam melhor e pedem menos azeite."
+    ],
+    "needsReview": false
   }
 ]
